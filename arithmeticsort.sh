@@ -14,14 +14,28 @@ results=( ["re1"]=$op1 ["re2"]=$op2 ["re3"]=$op3 ["re4"]=$op4 )
 
 echo "Dictionary -" ${results[@]}
 
-val=0
 
-arr[((val++))]="$op1"
-arr[((val++))]="$op2"
-arr[((val++))]="$op3"
-arr[((val))]="$op4"
+arr[0]=${results[re1]}
+arr[1]=${results[re2]}
+arr[2]=${results[re3]}
+arr[3]=${results[re4]}
 
-echo "results in array- " ${arr[@]}
 
-echo "Results in descending-  " ${arr[@]} | sort -r
+for ((i = 0; i<4; i++)) 
+do
+      
+    for((j = 0; j<4-i-1; j++)) 
+    do
+      
+        if [ ${arr[j]} -lt ${arr[$((j+1))]} ] 
+        then 
+            temp=${arr[j]} 
+            arr[$j]=${arr[$((j+1))]}   
+            arr[$((j+1))]=$temp 
+        fi
+    done
+done
 
+
+echo "Array in descending order :"
+echo ${arr[@]} 
